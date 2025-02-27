@@ -1,28 +1,40 @@
-import { useState } from 'react';
-import './App.css'
+import { useState } from "react";
+import { TaskCreator } from "./components/taskCreator.jsx";
+import "./App.css";
 
 function App() {
+  const [tasksItems, setTasksItems] = useState([
+    { name: "tarea 1", done: false },
+    { name: "tarea 2", done: false },
+    { name: "tarea 3", done: false },
+  ]);
 
-  const [newTaskName, setNewTaskName] = useState();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    localStorage.setItem('tasks', newTaskName);
-    setNewTaskName('');
+  function createNewTask(taskName) {
+    alert(taskName);
   }
 
   return (
     <>
-      <div className='app'>
+      <div className="app">
         <h1>Gestor de Tareas</h1>
-        <form onSubmit={handleSubmit}>
-          <input type="text" placeholder='Ingrese nueva tarea' value={newTaskName} onChange={(e) => setNewTaskName(e.target.value)} />
-
-          <button> Agregar</button>
-        </form>
+        <TaskCreator createNewTask={createNewTask}></TaskCreator>
+        <table>
+          <thead>
+            <tr>
+              <th>Tareas</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tasksItems.map((task) => (
+              <tr key={task.name}>
+                <td>{task.name}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   );
 }
 
-export default App
+export default App;

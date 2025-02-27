@@ -5,6 +5,7 @@ import "./App.css";
 
 function App() {
   const [tasksItems, setTasksItems] = useState([]);
+  const [showCompleted, setShowCompleted] = useState(false);
 
   function createNewTask(taskName) {
     const taskExists = tasksItems.some(
@@ -47,6 +48,20 @@ function App() {
         <h1>Gestor de Tareas</h1>
         <TaskCreator createNewTask={createNewTask} />
         <TaskTable tasks={tasksItems} toggleTask={toggleTask} />
+
+        <input
+          type="checkbox"
+          onChange={(e) => setShowCompleted(!showCompleted)}
+        ></input>
+        <label>Mostrar Tareas Completadas</label>
+
+        {showCompleted && (
+          <TaskTable
+            tasks={tasksItems}
+            toggleTask={toggleTask}
+            showCompleted={showCompleted}
+          />
+        )}
       </div>
     </>
   );

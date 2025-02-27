@@ -3,14 +3,24 @@ import { TaskCreator } from "./components/taskCreator.jsx";
 import "./App.css";
 
 function App() {
-  const [tasksItems, setTasksItems] = useState([
-    { name: "tarea 1", done: false },
-    { name: "tarea 2", done: false },
-    { name: "tarea 3", done: false },
-  ]);
+  const [tasksItems, setTasksItems] = useState([]);
 
   function createNewTask(taskName) {
-    alert(taskName);
+    const taskExists = tasksItems.some(
+      (task) => task.name.toLowerCase() === taskName.toLowerCase()
+    );
+
+    if (taskExists) {
+      alert("Esta tarea ya existe.");
+      return;
+    }
+    setTasksItems([
+      ...tasksItems,
+      {
+        name: taskName,
+        done: false,
+      },
+    ]);
   }
 
   return (

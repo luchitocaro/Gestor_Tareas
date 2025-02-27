@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { TaskCreator } from "./components/taskCreator.jsx";
+import { TaskTable } from "./components/tasktable.jsx";
 import "./App.css";
 
 function App() {
@@ -23,6 +24,12 @@ function App() {
     ]);
   }
 
+  const toggleTask = (task) => {
+    setTasksItems(
+      tasksItems.map((t) => (t.name == task.name ? { ...t, done: !t.done } : t))
+    );
+  };
+
   useEffect(() => {
     let data = localStorage.getItem("tasks");
     if (data) {
@@ -38,21 +45,8 @@ function App() {
     <>
       <div className="app">
         <h1>Gestor de Tareas</h1>
-        <TaskCreator createNewTask={createNewTask}></TaskCreator>
-        <table>
-          <thead>
-            <tr>
-              <th>Tareas</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tasksItems.map((task) => (
-              <tr key={task.name}>
-                <td>{task.name}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <TaskCreator createNewTask={createNewTask} />
+        <TaskTable tasks={tasksItems} toggleTask={toggleTask} />
       </div>
     </>
   );

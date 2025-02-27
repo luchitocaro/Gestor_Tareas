@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TaskCreator } from "./components/taskCreator.jsx";
 import "./App.css";
 
@@ -22,6 +22,17 @@ function App() {
       },
     ]);
   }
+
+  useEffect(() => {
+    let data = localStorage.getItem("tasks");
+    if (data) {
+      setTasksItems(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasksItems));
+  }, [tasksItems]);
 
   return (
     <>

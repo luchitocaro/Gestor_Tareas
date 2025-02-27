@@ -27,7 +27,7 @@ function App() {
 
   const toggleTask = (task) => {
     setTasksItems(
-      tasksItems.map((t) => (t.name == task.name ? { ...t, done: !t.done } : t))
+      tasksItems.map((t) => (t.name === task.name ? { ...t, done: !t.done } : t))
     );
   };
 
